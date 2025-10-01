@@ -11,46 +11,49 @@
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
         }
-        .nav-link, .species-card, .info-box {
-            transition: background-color 0.4s ease-in-out;
+        .nav-link {
+            transition: all 0.3s ease;
         }
         
-        /* Default active state if no specific theme is applied */
-        .nav-link.active {
-             background-color: #4c51bf;
-             color: white;
-        }
-
         /* Kemp's Ridley Theme */
-        .kemps_ridley-nav:hover, .kemps_ridley-nav.active { background-color: #3b82f6; /* blue-500 */ color: white; }
-        .kemps_ridley-card { /* Hover for main card removed to focus on info boxes */ }
-        .kemps_ridley-card .info-box:hover { background-color: #dbeafe; /* blue-100 */ }
-
+        .kemps_ridley-nav:hover, .kemps_ridley-nav.active { background-color: #3b82f6; color: white; transform: translateX(5px); }
+        .kemps_ridley-card .info-box { background-color: #eff6ff; border-left: 4px solid #3b82f6; }
 
         /* Loggerhead Theme */
-        .loggerhead-nav:hover, .loggerhead-nav.active { background-color: #22c55e; /* green-500 */ color: white; }
-        .loggerhead-card .info-box:hover { background-color: #dcfce7; /* green-100 */ }
+        .loggerhead-nav:hover, .loggerhead-nav.active { background-color: #22c55e; color: white; transform: translateX(5px); }
+        .loggerhead-card .info-box { background-color: #f0fdf4; border-left: 4px solid #22c55e; }
 
         /* Gopher Tortoise Theme */
-        .gopher_tortoise-nav:hover, .gopher_tortoise-nav.active { background-color: #a855f7; /* purple-500 */ color: white; }
-        .gopher_tortoise-card .info-box:hover { background-color: #f3e8ff; /* purple-100 */ }
+        .gopher_tortoise-nav:hover, .gopher_tortoise-nav.active { background-color: #a855f7; color: white; transform: translateX(5px); }
+        .gopher_tortoise-card .info-box { background-color: #faf5ff; border-left: 4px solid #a855f7; }
         
         /* Flattened Musk Theme */
-        .flattened_musk-nav:hover, .flattened_musk-nav.active { background-color: #eab308; /* yellow-500 */ color: white; }
-        .flattened_musk-card .info-box:hover { background-color: #fef9c3; /* yellow-100 */ }
+        .flattened_musk-nav:hover, .flattened_musk-nav.active { background-color: #eab308; color: white; transform: translateX(5px); }
+        .flattened_musk-card .info-box { background-color: #fefce8; border-left: 4px solid #eab308; }
         
         /* Alabama Red-bellied Theme */
-        .alabama_red_bellied-nav:hover, .alabama_red_bellied-nav.active { background-color: #ef4444; /* red-500 */ color: white; }
-        .alabama_red_bellied-card .info-box:hover { background-color: #fee2e2; /* red-100 */ }
+        .alabama_red_bellied-nav:hover, .alabama_red_bellied-nav.active { background-color: #ef4444; color: white; transform: translateX(5px); }
+        .alabama_red_bellied-card .info-box { background-color: #fee2e2; border-left: 4px solid #ef4444; }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-gray-50 text-gray-800">
 
     <!-- Header -->
-    <header class="bg-white shadow-md sticky top-0 z-20">
-        <div class="container mx-auto px-6 py-4">
-            <h1 class="text-3xl font-bold text-gray-900">Endangered Turtles & Tortoises of Alabama</h1>
-            <p class="text-md text-gray-600">An interactive guide to protected species</p>
+    <header class="bg-white shadow-sm sticky top-0 z-20">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Endangered Turtles of Alabama</h1>
+                <p class="text-md text-gray-600">A guide to our protected species</p>
+            </div>
         </div>
     </header>
 
@@ -61,7 +64,10 @@
             <!-- Navigation Sidebar -->
             <aside class="w-full lg:w-1/4">
                 <div class="bg-white p-4 rounded-lg shadow-md sticky top-24">
-                    <h2 class="text-xl font-semibold mb-4 border-b pb-2">Species</h2>
+                    <h2 class="text-xl font-semibold mb-4 border-b pb-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                        Species
+                    </h2>
                     <nav id="species-nav" class="space-y-2">
                         <!-- Navigation links will be inserted here by JavaScript -->
                     </nav>
@@ -70,13 +76,10 @@
 
             <!-- Content Area -->
             <section id="content-area" class="w-full lg:w-3/4">
-                <!-- Species content will be dynamically loaded here -->
-                 <div id="welcome-message" class="bg-white p-8 rounded-lg shadow-md text-center">
-                    <h2 class="text-2xl font-bold mb-4">Welcome!</h2>
-                    <p class="text-lg">Select a species from the menu on the left to learn more about its habitat, diet, and conservation status in Alabama.</p>
-                     <div class="mt-6">
-                        <svg class="w-24 h-24 mx-auto text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path d="M5.5 13.52V12.7c0-.98.46-1.88 1.21-2.47.43-.34.9-.62 1.39-.84.6-.26 1.25-.4 1.9-.4.78 0 1.5.19 2.11.53.56.32.99.78 1.23 1.32.22.48.33 1 .33 1.53v.35c0 .9-.29 1.7-.88 2.37-.58.67-1.35 1.18-2.28 1.5-.5.17-1.02.26-1.55.26-.87 0-1.68-.22-2.39-.65-.6-.36-1.06-.85-1.35-1.42z" fill="currentColor"></path></svg>
-                     </div>
+                 <div id="welcome-message" class="bg-white p-8 rounded-lg shadow-md text-center fade-in">
+                    <img src="https://placehold.co/150x150/2ecc71/ffffff?text=Hello!" alt="Turtle Illustration" class="mx-auto mb-6 rounded-full">
+                    <h2 class="text-2xl font-bold mb-4">Welcome to the Alabama Turtle Guide!</h2>
+                    <p class="text-lg text-gray-600">Click on a species in the menu to discover fascinating facts about its life, habitat, and why it needs our protection.</p>
                 </div>
             </section>
         </div>
@@ -84,11 +87,11 @@
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white mt-12 py-8">
-        <div class="container mx-auto px-6">
+        <div class="container mx-auto px-6 text-center">
             <h3 class="text-xl font-semibold mb-4">Sources & Further Learning</h3>
-            <ul id="sources-list" class="list-disc list-inside space-y-2 text-gray-300">
+            <div id="sources-list" class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-gray-300">
                <!-- Source links will be dynamically populated here -->
-            </ul>
+            </div>
         </div>
     </footer>
 
@@ -108,8 +111,8 @@
                     "Nesting Behavior": "Famous for their unique synchronized nesting events called 'arribadas', where thousands of females come ashore at the same time to lay eggs."
                 },
                 sources: [
-                    { title: "NOAA Fisheries - Kemp's Ridley Turtle", url: "https://www.fisheries.noaa.gov/species/kemps-ridley-turtle" },
-                    { title: "U.S. FWS - Kemp's Ridley Sea Turtle", url: "https://www.fws.gov/species/kemps-ridley-sea-turtle-lepidochelys-kempii" }
+                    { title: "NOAA Fisheries", url: "https://www.fisheries.noaa.gov/species/kemps-ridley-turtle" },
+                    { title: "U.S. Fish & Wildlife Service", url: "https://www.fws.gov/species/kemps-ridley-sea-turtle-lepidochelys-kempii" }
                 ]
             },
             loggerhead: {
@@ -126,8 +129,8 @@
                     "Powerful Jaws": "Their large, powerful jaws are designed to crush the shells of their prey like conchs and crabs."
                 },
                  sources: [
-                    { title: "NOAA Fisheries - Loggerhead Turtle", url: "https://www.fisheries.noaa.gov/species/loggerhead-turtle" },
-                    { title: "National Wildlife Federation - Loggerhead Sea Turtle", url: "https://www.nwf.org/Educational-Resources/Wildlife-Guide/Reptiles/Sea-Turtles/Loggerhead-Sea-Turtle" }
+                    { title: "NOAA Fisheries", url: "https://www.fisheries.noaa.gov/species/loggerhead-turtle" },
+                    { title: "National Wildlife Federation", url: "https://www.nwf.org/Educational-Resources/Wildlife-Guide/Reptiles/Sea-Turtles/Loggerhead-Sea-Turtle" }
                 ]
             },
             gopher_tortoise: {
@@ -137,15 +140,15 @@
                 onerror_image: "https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found",
                 info: {
                     "Conservation Status": "<span class='font-bold text-yellow-500'>Threatened</span> in the western part of its range (including Alabama). It's a keystone species.",
-                    "Habitat": "Requires well-drained, sandy soils found in longleaf pine forests, sandhills, and coastal dunes.",
+                    "Habitat": "Requires well-drained, sandy soils in longleaf pine forests, sandhills, and coastal dunes.",
                     "Region in Alabama": "Primarily found in the southern half of Alabama, particularly south of the Fall Line Hills.",
                     "Diet": "Herbivorous, feeding on low-growing plants like grasses, broadleaf herbs, and legumes.",
-                    "Keystone Species": "Their burrows can be up to 40 feet long and provide shelter for over 350 other species, making them critical to their ecosystem.",
+                    "Keystone Species": "Their burrows can be up to 40 feet long and provide shelter for over 350 other species.",
                      "Longevity": "These tortoises are long-lived, often reaching 40 to 60 years in the wild, with some living even longer."
                 },
                 sources: [
-                    { title: "U.S. FWS - Gopher Tortoise", url: "https://www.fws.gov/species/gopher-tortoise-gopherus-polyphemus" },
-                    { title: "Alabama DCNR - Gopher Tortoise", url: "https://www.outdooralabama.com/reptiles/gopher-tortoise" }
+                    { title: "U.S. Fish & Wildlife Service", url: "https://www.fws.gov/species/gopher-tortoise-gopherus-polyphemus" },
+                    { title: "Alabama DCNR", url: "https://www.outdooralabama.com/reptiles/gopher-tortoise" }
                 ]
             },
             flattened_musk: {
@@ -155,15 +158,15 @@
                 onerror_image: "https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found",
                 info: {
                     "Conservation Status": "<span class='font-bold text-yellow-500'>Threatened</span>. This species is endemic to Alabama.",
-                    "Habitat": "Lives in clean, clear, medium-sized streams and rivers with rocky or sandy bottoms within the Black Warrior River watershed.",
+                    "Habitat": "Lives in clean, clear, medium-sized streams and rivers with rocky or sandy bottoms.",
                     "Region in Alabama": "Found exclusively in the upper Black Warrior River system in north-central Alabama.",
                     "Diet": "Feeds on aquatic snails, clams, and insects found in its stream habitat.",
-                    "Threats": "Highly vulnerable to water pollution from historical and current coal mining, as well as sedimentation from agriculture and development.",
-                    "Nickname": "Sometimes called 'stinkpots' because they can release a foul-smelling musk from glands near their shell when threatened."
+                    "Threats": "Highly vulnerable to water pollution from mining, as well as sedimentation from agriculture and development.",
+                    "Nickname": "Sometimes called 'stinkpots' because they can release a foul-smelling musk when threatened."
                 },
                  sources: [
-                    { title: "U.S. FWS - Flattened Musk Turtle", url: "https://www.fws.gov/species/flattened-musk-turtle-sternotherus-depressus" },
-                    { title: "Outdoor Alabama - Flattened Musk Turtle", url: "https://www.outdooralabama.com/turtles/flattened-musk-turtle" }
+                    { title: "U.S. Fish & Wildlife Service", url: "https://www.fws.gov/species/flattened-musk-turtle-sternotherus-depressus" },
+                    { title: "Outdoor Alabama", url: "https://www.outdooralabama.com/turtles/flattened-musk-turtle" }
                 ]
             },
             alabama_red_bellied: {
@@ -176,12 +179,12 @@
                     "Habitat": "Inhabits freshwater rivers and lakes, particularly the lush aquatic vegetation of the Mobile-Tensaw River Delta.",
                     "Region in Alabama": "Has a very restricted range, found primarily in the rivers of the Mobile Bay drainage.",
                     "Diet": "Herbivorous, feeding almost exclusively on aquatic plants like hydrilla and eelgrass.",
-                    "Threats": "Habitat degradation, water pollution, human disturbance of nesting sites, and high predation rates on eggs and hatchlings.",
-                    "Conservation Efforts": "Programs often include 'head-starting', where hatchlings are raised in captivity to protect them until they are large enough to be released."
+                    "Threats": "Habitat degradation, water pollution, and high predation rates on eggs and hatchlings.",
+                    "Conservation Efforts": "Programs often include 'head-starting', where hatchlings are raised in captivity to be released when larger."
                 },
                 sources: [
-                    { title: "U.S. FWS - Alabama red-bellied cooter", url: "https://www.fws.gov/species/alabama-red-bellied-cooter-pseudemys-alabamensis" },
-                    { title: "Outdoor Alabama - Alabama Red-bellied Cooter", url: "https://www.outdooralabama.com/turtles/alabama-red-bellied-cooter" }
+                    { title: "U.S. Fish & Wildlife Service", url: "https://www.fws.gov/species/alabama-red-bellied-cooter-pseudemys-alabamensis" },
+                    { title: "Outdoor Alabama", url: "https://www.outdooralabama.com/turtles/alabama-red-bellied-cooter" }
                 ]
             }
         };
@@ -191,39 +194,44 @@
         const sourcesList = document.getElementById('sources-list');
         const welcomeMessage = document.getElementById('welcome-message');
 
-        // Populate Navigation and Sources
+        const allSources = new Map();
+
         Object.keys(speciesData).forEach(key => {
             const species = speciesData[key];
             const link = document.createElement('a');
             link.href = '#';
             link.textContent = species.name;
             link.dataset.species = key;
-            link.className = 'nav-link block px-4 py-2 rounded-md transition';
-            link.classList.add(`${key}-nav`); // Add species-specific class for hover styles
+            link.className = 'nav-link block px-4 py-3 rounded-md text-gray-700 font-semibold';
+            link.classList.add(`${key}-nav`); 
             nav.appendChild(link);
 
             species.sources.forEach(source => {
-                 const li = document.createElement('li');
-                 const a = document.createElement('a');
-                 a.href = source.url;
-                 a.textContent = source.title;
-                 a.target = '_blank';
-                 a.rel = 'noopener noreferrer';
-                 a.className = 'hover:text-white underline';
-                 li.appendChild(a);
-                 sourcesList.appendChild(li);
+                if (!allSources.has(source.url)) {
+                    allSources.set(source.url, source.title);
+                }
             });
         });
+        
+        allSources.forEach((title, url) => {
+            const a = document.createElement('a');
+            a.href = url;
+            a.textContent = title;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.className = 'hover:text-white underline transition';
+            sourcesList.appendChild(a);
+        });
 
-        // Event Listener for Navigation
+
         nav.addEventListener('click', e => {
             e.preventDefault();
-            if (e.target.classList.contains('nav-link')) {
-                const speciesKey = e.target.dataset.species;
+            const targetLink = e.target.closest('.nav-link');
+            if (targetLink) {
+                const speciesKey = targetLink.dataset.species;
                 
-                // Update active link style
                 document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-                e.target.classList.add('active');
+                targetLink.classList.add('active');
 
                 displaySpecies(speciesKey);
             }
@@ -236,34 +244,28 @@
 
             const species = speciesData[key];
             contentArea.innerHTML = `
-                <div class="bg-white p-6 md:p-8 rounded-lg shadow-md space-y-8 animate-fade-in species-card ${key}-card">
-                    <!-- Title -->
-                    <div>
-                        <h2 class="text-3xl font-bold">${species.name}</h2>
-                        <p class="text-lg italic text-gray-600">${species.scientific_name}</p>
+                <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg space-y-6 fade-in species-card ${key}-card">
+                    <div class="text-center">
+                        <h2 class="text-4xl font-bold text-gray-800">${species.name}</h2>
+                        <p class="text-xl italic text-gray-500 mt-1">${species.scientific_name}</p>
                     </div>
 
-                    <!-- Image -->
-                    <div>
-                        <img src="${species.image}" onerror="this.onerror=null;this.src='${species.onerror_image}';" alt="${species.name}" class="w-full h-auto rounded-lg shadow-lg">
+                    <div class="overflow-hidden rounded-lg shadow-md">
+                        <img src="${species.image}" onerror="this.onerror=null;this.src='${species.onerror_image}';" alt="${species.name}" class="w-full h-auto object-cover">
                     </div>
 
-                    <!-- Information Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         ${Object.keys(species.info).map(infoKey => `
-                            <div class="bg-gray-50 p-4 rounded-lg info-box">
-                                <h4 class="font-semibold text-lg text-gray-800">${infoKey}</h4>
+                            <div class="p-4 rounded-lg info-box">
+                                <h4 class="font-bold text-lg text-gray-900 mb-1">${infoKey}</h4>
                                 <p class="text-gray-700">${species.info[infoKey]}</p>
                             </div>
                         `).join('')}
                     </div>
-
                 </div>
             `;
-            
         }
     </script>
 </body>
 </html>
-
 
